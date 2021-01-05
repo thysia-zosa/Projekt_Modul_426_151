@@ -1,4 +1,4 @@
-name: Projekt_Modul_426_151
+name: projekt_modul_426_151_backend
 description: The BackendPart of it
 # version: 1.0.0
 # homepage: https://www.example.com
@@ -6,7 +6,9 @@ description: The BackendPart of it
 environment:
   sdk: '>=2.10.0 <3.0.0'
 
-#dependencies:
+dependencies:
+  mongo_dart: ^0.4.4
+  http_server: ^0.9.8+3
 #  path: ^1.7.0
 
 dev_dependencies:

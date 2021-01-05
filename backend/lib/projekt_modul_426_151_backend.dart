@@ -1,8 +1,9 @@
 /// Support for doing something awesome.
 ///
 /// More dartdocs go here.
-library Projekt_Modul_426_151;
+library projekt_modul_426_151_backend;
 
-export 'src/Projekt_Modul_426_151_base.dart';
+export 'src/auth_controller.dart';
+export 'src/entry_controller.dart';
 
 // TODO: Export any libraries intended for clients of this package.
