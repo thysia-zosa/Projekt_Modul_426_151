@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:http_server/http_server.dart';
@@ -22,5 +23,52 @@ class EntryController {
     handle();
   }
 
-  void handle() {}
+  void handle() async {
+    await checkJwt();
+    switch (_request.method) {
+      case 'GET':
+        await handleGet();
+        break;
+      case 'POST':
+        await handlePost();
+        break;
+      case 'PUT':
+        await handlePut();
+        break;
+      case 'PATCH':
+        await handlePatch();
+        break;
+      case 'DELETE':
+        await handleDelete();
+        break;
+      default:
+        _request.response.statusCode = HttpStatus.methodNotAllowed;
+    }
+    await _request.response.close();
+  }
+
+  Future<void> handleGet() async {
+    var _result = await _recordCollection.find();
+    _request.response.write(_result.toList());
+  }
+
+  Future<void> handlePost() async {
+    var _result = await _recordCollection.save(
+        Map<String, dynamic>.from(json.decode(utf8.decode(_requestBody.body))));
+    _request.response.write(_result);
+  }
+
+  Future<void> handlePut() async {
+    var _id = _request.uri.queryParameters['id'];
+    var _itemToReplace = await _recordCollection.findOne(where.eq('_id', _id));
+    var _result;
+    if (_itemToReplace == null) {
+      _result = await _recordCollection.save(Map<String, dynamic>.from(
+          json.decode(utf8.decode(_requestBody.body))));
+    }
+  }
+
+  Future<void> handlePatch() async {}
+
+  Future<void> handleDelete() async {}
 }
