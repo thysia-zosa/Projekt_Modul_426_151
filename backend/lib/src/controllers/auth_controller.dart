@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:http_server/http_server.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:projekt_modul_426_151_backend/src/jwt.dart';
+import '../models/jwt.dart';
 
 class AuthController {
   /// Felder
@@ -13,7 +13,6 @@ class AuthController {
   final HttpRequest _request;
   final DbCollection _authCollection;
   final DbCollection _sessionCollection;
-  final DbCollection _recordCollection;
 
   /// Constructor
   AuthController(
@@ -21,8 +20,7 @@ class AuthController {
     Db db,
   )   : _request = _requestBody.request,
         _authCollection = db.collection('users'),
-        _sessionCollection = db.collection('sessions'),
-        _recordCollection = db.collection('records') {
+        _sessionCollection = db.collection('sessions') {
     handle();
   }
 
@@ -42,8 +40,7 @@ class AuthController {
 
   Future<void> handleLogin() async {
     try {
-      final _body = Map<String, dynamic>.from(
-          json.decode(utf8.decode(_requestBody.body)));
+      final _body = Map<String, dynamic>.from(_requestBody.body);
       final String _username = _body['username'];
       final String _password = _body['password'];
       final _validUser =
@@ -56,7 +53,7 @@ class AuthController {
       if (_hashedPassword != _validUser['hashedPassword']) {
         throw Exception('wrong password');
       }
-      var _jwt = Jwt(_username).toString();
+      var _jwt = Jwt.fromUsername(_username).toString();
       var _newSession = <String, dynamic>{
         '_id': null,
         'username': _username,
@@ -81,8 +78,7 @@ class AuthController {
 
   Future<void> handleSignUp() async {
     try {
-      var _body = Map<String, dynamic>.from(
-          json.decode(utf8.decode(_requestBody.body)));
+      var _body = Map<String, dynamic>.from(_requestBody.body);
       final String _username = _body['username'];
       final String _email = _body['email'];
       final String _password = _body['password'];
