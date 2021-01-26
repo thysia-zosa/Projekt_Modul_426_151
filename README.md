@@ -28,7 +28,7 @@ Alternativ gibt es im buildOrdner eine kompilierte Version (nur für Linux)
 ### Frontend
 
 * npm
-* `npm install`: Lädt alle benötigten Pakete herunter
-* `npm start`: Startet einen lokalen Testserver welcher unter
+* Im FrontendOrdner `npm install` ausführen: Lädt alle benötigten Pakete herunter
+* Im FrontendOrdner `npm start` ausführen: Startet einen lokalen Testserver welcher unter
 http://localhost:3000 erreichbar ist.
 * enjoy :)
