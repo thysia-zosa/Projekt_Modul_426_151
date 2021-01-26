@@ -29,7 +29,7 @@ class AuthController {
       case '/login':
         await handleLogin();
         break;
-      case '/users/signup':
+      case '/users/sign-up':
         await handleSignUp();
         break;
       default:

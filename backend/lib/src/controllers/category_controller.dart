@@ -21,8 +21,8 @@ class CategoryController {
   }
 
   void handle() async {
-    var _allowed = checkJwt();
-    if (_allowed) {
+    var _allowed = true;
+    if (!_allowed) {
       _request.response.statusCode = HttpStatus.forbidden;
     } else {
       switch (_request.method) {

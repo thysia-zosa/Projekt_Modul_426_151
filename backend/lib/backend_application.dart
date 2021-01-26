@@ -57,7 +57,7 @@ class BackendApplication {
     } else {
       /// Weiterleitung des Requestbodys an den jeweiligen Controller
       switch (requestBody.request.uri.path) {
-        case '/users/signup':
+        case '/users/sign-up':
         case '/login':
           AuthController(requestBody, db);
           break;
